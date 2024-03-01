@@ -25,15 +25,26 @@ function addEntry() {
 		created: Date.now(),
 	});
 
-	localStorage.setItem("entries", JSON.stringify(entries));
-
+	saveEntries();
 	updateEntries();
+}
+
+function saveEntries() {
+	localStorage.setItem("entries", JSON.stringify(entries));
 }
 
 function updateEntries() {
 	entriesElemen.innerHTML = "";
 	entries.forEach((entry) => {
-		entriesElemen.innerHTML += `<div class="entry">${entry.name}</div>`;
+		let entryElem = document.createElement("div");
+		entryElem.classList.add("entry");
+		entryElem.innerHTML = entry.name;
+		entryElem.onclick = () => {
+			entryElem.remove();
+			entries = entries.filter((cEntry) => cEntry != entry);
+			saveEntries();
+		};
+		entriesElemen.append(entryElem);
 	});
 }
 

@@ -9,4 +9,6 @@ body {
 }
 
 .entry {
+	cursor: not-allowed;
+	width: fit-content;
 }
